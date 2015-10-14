@@ -6,10 +6,7 @@
     "source-directories": [
         "src"
     ],
-    "exposed-modules": [
-        "StartApp",
-        "StartApp.Simple"
-    ],
+    "exposed-modules": [],
     "dependencies": {
         "elm-lang/core": "2.0.1 <= v < 4.0.0",
         "evancz/elm-effects": "2.0.0 <= v < 3.0.0",
