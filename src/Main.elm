@@ -1,10 +1,10 @@
-import EditForm exposing (init, update, view)
+import MyApp exposing (init, update, view)
 import StartApp.Simple exposing (start)
 
 
 main =
   start
-    { model = init "hello" "world"
+    { model = init
     , update = update
     , view = view
     }
