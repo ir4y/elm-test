@@ -16,8 +16,13 @@ type Action
     | Del
     | Set
     | CheckAll Bool
+    | Load10000
 
 init = Model (EditForm.init "" "") []
+
+getRandomItems: Int -> ItemList.Model
+getRandomItems count = List.repeat count (EditForm.init "foo" "bar")
+
 
 update : Action -> Model -> Model
 update action model =
@@ -34,13 +39,15 @@ update action model =
                in {model | itemList <- List.map updateItem model.itemList
                          , editForm <- EditForm.init "" "" }
         CheckAll value -> {model | itemList <- List.map (\item -> {item | selected <- value}) model.itemList}
+        Load10000 -> {model | itemList <- model.itemList ++ (getRandomItems 10000)}
 
 isAllCheck : ItemList.Model -> Bool
 isAllCheck items = List.all .selected items
 
 view : Signal.Address Action -> Model -> Html
 view address model  = div []
-                          [ EditForm.view (Signal.forwardTo address EF) model.editForm
+                          [ button [ onClick address Load10000 ] [text "Load 10 000 items"]
+                          , EditForm.view (Signal.forwardTo address EF) model.editForm
                           , p [] [ input [ type' "checkbox"
                                          , checked (isAllCheck model.itemList)
                                          , on "change" targetChecked (Signal.message address << CheckAll)
