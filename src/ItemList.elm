@@ -27,8 +27,8 @@ view address itemList  = table [] [tbody [] (List.indexedMap (viewItem address) 
 
 viewItem : Signal.Address Action -> Int -> EditForm.Model -> Html
 viewItem address index item = tr [] [ td [] [input [ type' "checkbox"
-                                             , checked item.selected
-                                             , on "change" targetChecked (Signal.message address << Check index) ] []]
+                                                   , checked item.selected
+                                                   , on "change" targetChecked (Signal.message address << Check index) ] []]
                               , td [] [text item.name.value]
                               , td [] [text item.externalId.value]
                               ]
